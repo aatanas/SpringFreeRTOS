@@ -1,5 +1,5 @@
 # SpringFreeRTOS
-A scheduler on top of FreeRTOS that allows tasks to be scheduled according to the [Spring algorithm](spring-algorithm).
+A scheduler on top of FreeRTOS that allows tasks to be scheduled according to the [Spring algorithm](#spring-algorithm).
 
 The scheduler is implemented as a high-priority task that schedules other tasks over the existing FreeRTOS scheduler.
 
