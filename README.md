@@ -1,25 +1,25 @@
 # SpringFreeRTOS
-A scheduler on top of FreeRTOS that allows tasks to be scheduled according to the Spring algorithm.
+A scheduler on top of FreeRTOS that allows tasks to be scheduled according to the [Spring algorithm](spring-algorithm).
 
 The scheduler is implemented as a high-priority task that schedules other tasks over the existing FreeRTOS scheduler.
 
-The Spring algorithm supports:
+The implementation supports:
 
 - All basic heuristic functions:
   
-   - a
+   - a - *First Come First Served (FCFS)*
   
-   - C
+   - C - *Shortest Job First (SJF)*
   
-   - d
+   - d - *Earliest Deadline First*
   
-   - d + W*C
+   - d + W*C - *Earliest Start Time First (ESTF)*
 
 - Working with resources:
   
-   - T<sub>est</sub>
+   - T<sub>est</sub> - *EDF + SJF*
   
-   - d + W * T<sub>est</sub>
+   - d + W * T<sub>est</sub> - *EDF + ESTF*
 
 - Restriction of precedence:
   
@@ -62,6 +62,15 @@ When specifying an input, the user specifies the following elements:
 
 - Restriction of precedence.
 
-
-
 All time parameters are specified in ticks.
+
+## Spring algorithm
+A scheduling algorithm adopted from the Spring kernel that is intended for critical management applications in a dynamic environment. The goal of the algorithm is to find a feasible schedule when tasks have different types of constraints, such as precedence relations, resource constraints, arbitrary arrival times, no crowding, and different importance levels.
+
+The Spring algorithm is used in a distributed computing environment, and can be extended to fault-tolerant systems.  
+This problem is NP-hard and finding a feasible schedule would be too expensive in terms of computing time, especially for dynamic systems.  
+
+To make the algorithm practically acceptable even in the worst case, the search is performed using the heuristic function H, which actively directs the deployment towards a plausible path. At each search level, the function H is applied to each task to be scheduled. The task that has the smallest value determined by the function H is selected to expand the current schedule.
+
+The heuristic function is a very flexible mechanism that easily defines and modifies the kernel scheduling policy.  
+For example, if H = ai (arrival time), the algorithm behaves as FCFS (First Come First Served), if H = Ci (computation time), it works as SJF (Shortest Job First), while if H = di (finish deadline), the algorithm is equivalent to EDF (Earliest Deadline First).
